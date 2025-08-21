@@ -1,0 +1,59 @@
+{
+  "name": "change-detection-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Change Detection & Monitoring System",
+  "main": "index.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:unit": "jest"
+  },
+  "dependencies": {
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.5",
+    "vuex": "^4.1.0",
+    "ol": "^8.2.0",
+    "ol-ext": "^4.0.0",
+    "bootstrap": "^5.3.2",
+    "bootstrap-vue-3": "^0.5.1",
+    "axios": "^1.6.2",
+    "leaflet": "^1.9.4",
+    "leaflet-draw": "^1.0.4",
+    "turf": "^3.0.14",
+    "proj4": "^2.9.2",
+    "chart.js": "^4.4.0",
+    "vue-chartjs": "^5.2.0",
+    "moment": "^2.29.4",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^5.0.8",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-plugin-router": "^5.0.8",
+    "@vue/cli-plugin-vuex": "^5.0.8",
+    "@vue/compiler-sfc": "^3.3.4",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.55.0",
+    "eslint-plugin-vue": "^9.19.2",
+    "sass": "^1.69.5",
+    "sass-loader": "^13.3.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "keywords": [
+    "vue",
+    "gis",
+    "change-detection",
+    "satellite-imagery",
+    "monitoring"
+  ],
+  "author": "Change Detection Team",
+  "license": "MIT"
+}
+
+

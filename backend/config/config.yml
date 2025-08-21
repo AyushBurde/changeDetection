@@ -1,0 +1,36 @@
+# Change Detection System Configuration
+
+# Database Configuration
+database:
+  url: "postgresql://postgres:your_password@localhost:5432/change_detection_db"
+  host: "localhost"
+  port: 5432
+  name: "change_detection_db"
+  user: "postgres"
+  password: "your_password"
+  pool_size: 20
+  max_overflow: 30
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: true
+  cors_origins: ["*"]
+
+# Change Detection Settings
+detection:
+  bands: ["red", "green", "nir"]
+  cloud:
+    brightness_threshold: 0.7
+    ndvi_threshold: 0.1
+    shadow_threshold: 0.3
+  change:
+    min_change_threshold: 0.15
+    confidence_threshold: 0.8
+
+# Logging
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} - {message}"
+

@@ -1,0 +1,6 @@
+# Minimal requirements for FastAPI app
+fastapi
+uvicorn[standard]
+pydantic
+loguru
+

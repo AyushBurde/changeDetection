@@ -1,0 +1,101 @@
+# Change Detection System Configuration
+# Copy this file to config.yml and update with your settings
+
+# Database Configuration
+database:
+  host: localhost
+  port: 5432
+  name: change_detection_db
+  user: postgres
+  password: your_password_here
+  pool_size: 20
+  max_overflow: 30
+
+# Bhoonidhi API Configuration
+bhoonidhi:
+  base_url: https://bhoonidhi.nrsc.gov.in
+  api_key: your_api_key_here
+  username: your_username_here
+  password: your_password_here
+  timeout: 30
+
+# File Storage Configuration
+storage:
+  base_path: ./data
+  imagery_path: ./data/imagery
+  results_path: ./data/results
+  temp_path: ./data/temp
+  max_file_size: 1073741824  # 1GB in bytes
+
+# Change Detection Parameters
+detection:
+  # Spectral bands to use (Red, Green, NIR)
+  bands: ["red", "green", "nir"]
+  
+  # Cloud detection thresholds
+  cloud:
+    ndvi_threshold: 0.1
+    brightness_threshold: 0.7
+    shadow_threshold: 0.3
+  
+  # Change detection sensitivity
+  change:
+    min_change_threshold: 0.15
+    seasonal_filter: true
+    anthropogenic_filter: true
+  
+  # Processing parameters
+  processing:
+    tile_size: 512
+    overlap: 64
+    max_workers: 4
+
+# Alert System Configuration
+alerts:
+  email:
+    smtp_server: smtp.gmail.com
+    smtp_port: 587
+    username: your_email@gmail.com
+    password: your_app_password_here
+    from_address: alerts@yourdomain.com
+  
+  webhook:
+    enabled: false
+    url: https://your-webhook-url.com/notify
+  
+  thresholds:
+    change_percentage: 10.0
+    confidence_score: 0.8
+
+# Logging Configuration
+logging:
+  level: INFO
+  file: ./logs/app.log
+  max_size: 10485760  # 10MB
+  backup_count: 5
+
+# API Configuration
+api:
+  host: 0.0.0.0
+  port: 8000
+  debug: false
+  cors_origins: ["http://localhost:3000", "http://localhost:8080"]
+
+# Redis Configuration (for task queue)
+redis:
+  host: localhost
+  port: 6379
+  db: 0
+  password: null
+
+# Celery Configuration
+celery:
+  broker_url: redis://localhost:6379/0
+  result_backend: redis://localhost:6379/0
+  task_serializer: json
+  result_serializer: json
+  accept_content: json
+  timezone: UTC
+  enable_utc: true
+
+
