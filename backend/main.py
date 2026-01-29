@@ -143,8 +143,8 @@ async def initialize_database():
 
 # Include routers
 app.include_router(aoi_router, prefix="/api/v1/aoi", tags=["AOI Management"])
-# app.include_router(imagery.router, prefix="/api/v1/imagery", tags=["Satellite Imagery"])
-# app.include_router(detection.router, prefix="/api/v1/detection", tags=["Change Detection"])
+from api.detection import router as detection_router
+app.include_router(detection_router, prefix="/api/v1/detection", tags=["Change Detection"])
 # app.include_router(alerts.router, prefix="/api/v1/alerts", tags=["Alerts & Notifications"])
 
 if __name__ == "__main__":

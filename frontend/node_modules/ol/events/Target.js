@@ -2,9 +2,9 @@
  * @module ol/events/Target
  */
 import Disposable from '../Disposable.js';
-import Event from './Event.js';
 import {VOID} from '../functions.js';
 import {clear} from '../obj.js';
+import Event from './Event.js';
 
 /**
  * @typedef {EventTarget|Target} EventTargetLike
@@ -131,6 +131,7 @@ class Target extends Disposable {
 
   /**
    * Clean up.
+   * @override
    */
   disposeInternal() {
     this.listeners_ && clear(this.listeners_);

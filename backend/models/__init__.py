@@ -10,15 +10,17 @@ except ImportError:
 
 # Import all models
 try:
+    # Relative imports for package
     from .aoi import AOI
-    from .imagery import SatelliteImage
-    from .detection import ChangeDetectionJob, ChangeDetectionResult
-    from .alerts import Alert, NotificationRule
+    # from .imagery import SatelliteImage
+    # from .detection import ChangeDetectionJob, ChangeDetectionResult
+    # from .alerts import Alert, NotificationRule
 except ImportError:
-    from aoi import AOI
-    from imagery import SatelliteImage
-    from detection import ChangeDetectionJob, ChangeDetectionResult
-    from alerts import Alert, NotificationRule
+    # Try absolute imports
+    from models.aoi import AOI
+    # from models.imagery import SatelliteImage
+    # from models.detection import ChangeDetectionJob, ChangeDetectionResult
+    # from models.alerts import Alert, NotificationRule
 
 __all__ = [
     "Base",
