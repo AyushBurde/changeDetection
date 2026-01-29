@@ -1,93 +1,114 @@
-# Change Detection & Monitoring System
+# 🛰️ WatchDog: Automated Satellite Change Detection & Alert System
 
-A robust, automated change detection and alert system using multi-temporal satellite imagery for user-defined Areas of Interest (AOIs).
+> An "Eye in the Sky" that monitors forests and critical infrastructure using Sentinel-2 Satellite Imagery, NDVI Spectral Analysis, and Proactive AI Alerts.
 
-## 🎯 Project Overview
+![ISRO Watch Dashboard](https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop)
 
-This system provides:
-- **Automated change detection** with cloud/shadow masking
-- **Web-based AOI selection** and visualization tools
-- **Real-time monitoring** and alert notifications
-- **GIS-compatible outputs** for spatial analysis
+## 📌 Problem Statement
+Governments and organizations manage millions of acres of land, including forests, national parks, and defense sites. **Manual patrolling is impossible** at this scale. Illegal activities (deforestation, mining, encroachment) often go unnoticed until it is too late.
 
-## 🏗️ Architecture
+## 💡 Our Solution
+We have built an **Autonomous Monitoring Pipeline** that:
+1.  **Watches** user-defined Areas of Interest (AOIs).
+2.  **Automatically fetches** new satellite imagery (Sentinel-2) every ~5 days.
+3.  **Detects Changes** using scientific **NDVI (Normalized Difference Vegetation Index)** analysis.
+4.  **Alerts Authorities** instantly via Email/SMS when significant changes (>20%) are detected.
 
+---
+
+## 🚀 Key Features (USPs)
+*   **📡 Multi-Temporal Analysis**: Compares historical vs. current satellite data to find true changes.
+*   **🧠 Intelligent Filtering**: Uses Cloud Masking and Thresholding to ignore weather noise and seasonal variations.
+*   **⚡ High-Performance Architecture**: 
+    *   **Frontend**: Built with **Vue 3 + Vite + TailwindCSS** for a premium, responsive experience.
+    *   **Backend**: Powered by **FastAPI (Python)** for high-speed async processing.
+    *   **Processing**: Integrated **Celery + Redis** for background task management.
+*   **📧 Proactive Alerting**: System notifies YOU; you don't have to check the map daily.
+
+---
+
+## 🛠️ Technology Stack
+| Component | Technology | Use Case |
+| :--- | :--- | :--- |
+| **Frontend** | Vue 3, Vite, TailwindCSS | Interactive Dashboard & Map UI |
+| **Mapping** | OpenLayers (OL) | Rendering Satellite Maps & AOI Drawing |
+| **Backend** | Python (FastAPI) | High-performance REST API |
+| **Core Logic** | NumPy, Rasterio, GeoPandas | Satellite Image Processing & NDVI Math |
+| **Async Tasks** | Celery + Redis | Handling heavy image processing jobs |
+| **Data Source** | Sentinel-2 (ESA) | Publicly available satellite imagery |
+
+---
+
+## 🏗️ System Architecture
+```mermaid
+graph TD
+    A[User / Frontend] -->|1. Draw AOI| B(FastAPI Backend)
+    B -->|2. Queue Task| C{Redis Queue}
+    C -->|3. Pickup Job| D[Celery Worker]
+    D -->|4. Fetch Image| E[Satellite Provider / Simulation]
+    D -->|5. Compute NDVI| D
+    D -->|6. Check Threshold| F{Change > 20%?}
+    F -- Yes --> G[Trigger Alert & Send Email]
+    F -- No --> H[Log 'Stable' Status]
+    G --> B
+    B -->|7. Push Notification| A
 ```
-├── backend/                 # Python backend services
-│   ├── api/                # REST API endpoints
-│   ├── core/               # Core change detection algorithms
-│   ├── models/             # Data models and database schemas
-│   └── services/           # Business logic services
-├── frontend/               # Vue.js web application
-│   ├── components/         # Vue components
-│   ├── views/              # Page views
-│   └── assets/             # Static assets
-├── database/               # Database migrations and schemas
-├── config/                 # Configuration files
-└── docs/                   # Documentation
-```
 
-## 🚀 Quick Start
+---
+
+## 💻 Installation & Setup
 
 ### Prerequisites
-- Python 3.8+
-- Node.js 16+
-- PostgreSQL 12+ with PostGIS
-- Docker (optional)
+*   Python 3.9+
+*   Node.js 16+
+*   Redis (Optional, for full async mode)
 
-### Backend Setup
+### 1️⃣ Backend Setup
 ```bash
 cd backend
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
+# Windows:
+venv\Scripts\activate
+# Linux/Mac:
+source venv/bin/activate
 
-### Frontend Setup
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+*Backend runs at: `http://localhost:8000`*
+
+### 2️⃣ Frontend Setup
 ```bash
 cd frontend
 npm install
-npm run serve
+npm run dev
 ```
+*Frontend runs at: `http://localhost:5173`*
 
-### Database Setup
-```bash
-# Create database and enable PostGIS
-createdb change_detection_db
-psql change_detection_db -c "CREATE EXTENSION postgis;"
-```
+---
 
-## 📋 Development Roadmap
+## 🎮 How to Run the Demo
+1.  Open the **Frontend Dashboard**.
+2.  Click **"New AOI"** on the sidebar.
+3.  **Draw a Polygon** on the map (Click points, Double-click to finish).
+4.  The system will automatically trigger a **Simulation**.
+5.  Wait for the **Red Alert Banner** to appear: *"Significant vegetation loss detected"*.
+6.  Observe the **"📧 Email Sent"** confirmation badge.
 
-- [x] Project structure setup
-- [ ] Backend API development
-- [ ] Change detection algorithms
-- [ ] Frontend web interface
-- [ ] Database integration
-- [ ] Alert system implementation
-- [ ] Testing and optimization
-- [ ] Deployment
+---
 
-## 🔧 Configuration
+## ❓ FAQ (Defense Guide)
 
-Copy `config/config.example.yml` to `config/config.yml` and update with your settings:
-- Database credentials
-- Bhoonidhi API credentials
-- Email service configuration
-- File storage paths
+**Q: Do you use real-time data?**
+A: The system is designed to use the **Sentinel-2 Public API**. For this demonstration, we use a **Simulation Mode** to show the end-to-end pipeline without waiting for large file downloads.
 
-## 📚 API Documentation
+**Q: Why NDVI instead of Deep Learning?**
+A: NDVI is computationally efficient, scientifically proven for vegetation analysis, and offers transparent "Explainable AI" results, which is crucial for government auditing.
 
-API endpoints and usage examples are available in the `docs/` directory.
+**Q: Can this scale?**
+A: Yes. We use **Celery & Redis**, which allows us to add hundreds of worker nodes to process thousands of AOIs in parallel.
 
-## 🤝 Contributing
+---
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License.
+## 📜 License
+MIT License. Built for Innovation.
